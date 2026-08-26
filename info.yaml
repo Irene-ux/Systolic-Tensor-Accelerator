@@ -17,3 +17,152 @@ project:
   discord: "irene_raphael, amxlanil, muhammedrabin, myx_on_57134, maroonchocopie"
   description: "Parameterizable output-stationary systolic array accelerator for streaming matrix multiplication"
   lvs_config: "lvs_config.json"
+
+
+# ======================================================
+# Requested ACE physical pad allocation
+#
+# NOTE TO INTEGRATION:
+# This section is intentionally included to communicate the
+# requested physical pad locations and intentionally unused
+# positions for DEF generation.
+#
+# The unused positions are deliberate:
+#   - W14 and W16 provide spacing around the clock pad W15.
+#   - N01-N04 provide unused pad positions near the W22/N01 corner.
+#   - N13 separates the shared data bus from the output interface.
+#
+# W11 and W12 are fixed/common VSS locations and are therefore
+# not repeated in the project "pins" list below.
+#
+# Please confirm the supported mechanism if this pad-map syntax
+# differs from the integration flow's expected schema.
+# ======================================================
+requested_pad_map:
+
+  # ----- WEST edge -----
+  W07: unused
+  W08: unused
+  W09: unused
+
+  W10: VDD
+
+  W11: VSS_common
+  W12: VSS_common
+
+  W13: rst_n
+
+  W14: unused
+  W15: clk
+  W16: unused
+
+  W17: a_valid_i
+  W18: a_last_i
+  W19: a_ready_o
+
+  W20: b_valid_i
+  W21: b_last_i
+  W22: b_ready_o
+
+
+  # ----- NORTH edge -----
+  N01: unused
+  N02: unused
+  N03: unused
+  N04: unused
+
+  N05: data[0]
+  N06: data[1]
+  N07: data[2]
+  N08: data[3]
+  N09: data[4]
+  N10: data[5]
+  N11: data[6]
+  N12: data[7]
+
+  N13: unused
+
+  N14: out_valid_o
+  N15: out_ready_i
+  N16: out_last_o
+
+
+# ======================================================
+# Pin list
+#
+# Used project bonding pads only.
+# Intentionally unused pad locations are NOT represented as
+# dummy I/O cells here.
+# ======================================================
+pins:
+
+  # ----- Power -----
+  - name: VDD
+    io_type: power
+
+
+  # ----- Global control -----
+  - name: rst_n
+    io_type: input_cmos
+
+  - name: clk
+    io_type: input_schmitt
+
+
+  # ----- A interface -----
+  - name: a_valid_i
+    io_type: input_cmos
+
+  - name: a_last_i
+    io_type: input_cmos
+
+  - name: a_ready_o
+    io_type: bidirectional_24ma
+
+
+  # ----- B interface -----
+  - name: b_valid_i
+    io_type: input_cmos
+
+  - name: b_last_i
+    io_type: input_cmos
+
+  - name: b_ready_o
+    io_type: bidirectional_24ma
+
+
+  # ----- Shared 8-bit bidirectional data bus -----
+  - name: data[0]
+    io_type: bidirectional_24ma
+
+  - name: data[1]
+    io_type: bidirectional_24ma
+
+  - name: data[2]
+    io_type: bidirectional_24ma
+
+  - name: data[3]
+    io_type: bidirectional_24ma
+
+  - name: data[4]
+    io_type: bidirectional_24ma
+
+  - name: data[5]
+    io_type: bidirectional_24ma
+
+  - name: data[6]
+    io_type: bidirectional_24ma
+
+  - name: data[7]
+    io_type: bidirectional_24ma
+
+
+  # ----- Output interface -----
+  - name: out_valid_o
+    io_type: bidirectional_24ma
+
+  - name: out_ready_i
+    io_type: input_cmos
+
+  - name: out_last_o
+    io_type: bidirectional_24ma
