@@ -20,149 +20,162 @@ project:
 
 
 # ======================================================
-# Requested ACE physical pad allocation
-#
-# NOTE TO INTEGRATION:
-# This section is intentionally included to communicate the
-# requested physical pad locations and intentionally unused
-# positions for DEF generation.
-#
-# The unused positions are deliberate:
-#   - W14 and W16 provide spacing around the clock pad W15.
-#   - N01-N04 provide unused pad positions near the W22/N01 corner.
-#   - N13 separates the shared data bus from the output interface.
-#
-# W11 and W12 are fixed/common VSS locations and are therefore
-# not repeated in the project "pins" list below.
-#
-# Please confirm the supported mechanism if this pad-map syntax
-# differs from the integration flow's expected schema.
-# ======================================================
-requested_pad_map:
-
-  # ----- WEST edge -----
-  W07: unused
-  W08: unused
-  W09: unused
-
-  W10: VDD
-
-  W11: VSS_common
-  W12: VSS_common
-
-  W13: rst_n
-
-  W14: unused
-  W15: clk
-  W16: unused
-
-  W17: a_valid_i
-  W18: a_last_i
-  W19: a_ready_o
-
-  W20: b_valid_i
-  W21: b_last_i
-  W22: b_ready_o
-
-
-  # ----- NORTH edge -----
-  N01: unused
-  N02: unused
-  N03: unused
-  N04: unused
-
-  N05: data[0]
-  N06: data[1]
-  N07: data[2]
-  N08: data[3]
-  N09: data[4]
-  N10: data[5]
-  N11: data[6]
-  N12: data[7]
-
-  N13: unused
-
-  N14: out_valid_o
-  N15: out_ready_i
-  N16: out_last_o
-
-
-# ======================================================
 # Pin list
 #
-# Used project bonding pads only.
-# Intentionally unused pad locations are NOT represented as
-# dummy I/O cells here.
+# ACE slot:
+#   WEST  : W07-W22
+#   NORTH : N01-N16
+#
+# Intentionally unused pad positions are explicitly included
+# as analog NC pads according to organizer guidance.
 # ======================================================
+
 pins:
 
-  # ----- Power -----
+  # ====================================================
+  # WEST EDGE
+  # ====================================================
+
+  # W07
   - name: VDD
     io_type: power
 
+  # W08
+  - name: VSS
+    io_type: ground
 
-  # ----- Global control -----
+  # W09
+  - name: W09_NC
+    io_type: analog
+    secondary_esd: false
+
+  # W10
+  - name: W10_NC
+    io_type: analog
+    secondary_esd: false
+
+  # W11
   - name: rst_n
     io_type: input_cmos
 
+  # W12
+  - name: W12_NC
+    io_type: analog
+    secondary_esd: false
+
+  # W13
+  - name: W13_NC
+    io_type: analog
+    secondary_esd: false
+
+  # W14
   - name: clk
     io_type: input_schmitt
 
+  # W15
+  - name: W15_NC
+    io_type: analog
+    secondary_esd: false
 
-  # ----- A interface -----
+  # W16
+  - name: W16_NC
+    io_type: analog
+    secondary_esd: false
+
+  # W17
   - name: a_valid_i
     io_type: input_cmos
 
+  # W18
   - name: a_last_i
     io_type: input_cmos
 
+  # W19
   - name: a_ready_o
     io_type: bidirectional_24ma
 
-
-  # ----- B interface -----
+  # W20
   - name: b_valid_i
     io_type: input_cmos
 
+  # W21
   - name: b_last_i
     io_type: input_cmos
 
+  # W22
   - name: b_ready_o
     io_type: bidirectional_24ma
 
 
-  # ----- Shared 8-bit bidirectional data bus -----
+  # ====================================================
+  # NORTH EDGE
+  # ====================================================
+
+  # N01
+  - name: N01_NC
+    io_type: analog
+    secondary_esd: false
+
+  # N02
+  - name: N02_NC
+    io_type: analog
+    secondary_esd: false
+
+  # N03
+  - name: N03_NC
+    io_type: analog
+    secondary_esd: false
+
+  # N04
+  - name: N04_NC
+    io_type: analog
+    secondary_esd: false
+
+  # N05
   - name: data[0]
     io_type: bidirectional_24ma
 
+  # N06
   - name: data[1]
     io_type: bidirectional_24ma
 
+  # N07
   - name: data[2]
     io_type: bidirectional_24ma
 
+  # N08
   - name: data[3]
     io_type: bidirectional_24ma
 
+  # N09
   - name: data[4]
     io_type: bidirectional_24ma
 
+  # N10
   - name: data[5]
     io_type: bidirectional_24ma
 
+  # N11
   - name: data[6]
     io_type: bidirectional_24ma
 
+  # N12
   - name: data[7]
     io_type: bidirectional_24ma
 
+  # N13
+  - name: N13_NC
+    io_type: analog
+    secondary_esd: false
 
-  # ----- Output interface -----
+  # N14
   - name: out_valid_o
     io_type: bidirectional_24ma
 
-  - name: out_ready_i
-    io_type: input_cmos
-
+  # N15
   - name: out_last_o
     io_type: bidirectional_24ma
+
+  # N16
+  - name: out_ready_i
+    io_type: input_cmos
